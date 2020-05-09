@@ -9,3 +9,7 @@ export function selectAddresses(state) {
 export function selectIsLoading(state) {
   return state.addresses.isLoading;
 }
+
+export function selectIsError(state) {
+  return state.addresses.isError;
+}

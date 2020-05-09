@@ -1,10 +1,10 @@
-import {
-  GET_ADDRESSES,
-  GET_ADDRESSES_SUCCESS,
-  GET_ADDRESSES_ERROR,
-} from "./actionTypes";
-
 import { Endpoints } from "../../config/urls";
+
+import axios from "axios";
+
+export const GET_ADDRESSES = "GET_ADDRESSES";
+export const GET_ADDRESSES_SUCCESS = "GET_ADDRESSES_SUCCESS";
+export const GET_ADDRESSES_ERROR = "GET_ADDRESSES_ERROR";
 
 export function getCustomerAddresses(customerId) {
   return function (dispatch, getState) {
@@ -12,9 +12,14 @@ export function getCustomerAddresses(customerId) {
       type: GET_ADDRESSES,
       customerId: customerId,
     });
-    fetch(Endpoints.getAddresses(customerId))
-      .then((result) => {
-        return result.json();
+    axios
+      .get(Endpoints.getAddresses(customerId))
+      .then((response) => {
+        console.log(response);
+        if (response.data && response.data.success) {
+          return response.data;
+        }
+        throw new Error("API failed");
       })
       .then((result) => {
         const { addresses, ...customer } = result.customer;

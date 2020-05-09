@@ -5,3 +5,7 @@ export function selectCustomers(state) {
 export function selectIsLoading(state) {
   return state.customers.isLoading;
 }
+
+export function selectIsError(state) {
+  return state.customers.isError;
+}

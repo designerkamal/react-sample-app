@@ -3,10 +3,11 @@ import {
   GET_ADDRESSES,
   GET_ADDRESSES_SUCCESS,
   GET_ADDRESSES_ERROR,
-} from "./actionTypes";
+} from "./actions";
 
 const initialState = {
   isLoading: false,
+  isError: false,
   customerId: "",
   customer: null,
   addresses: [],
@@ -17,6 +18,7 @@ const addressesReducer = createReducer(initialState, {
     return {
       ...state,
       isLoading: true,
+      isError: false,
       customerId,
       customer: null,
       addresses: [],
@@ -34,6 +36,7 @@ const addressesReducer = createReducer(initialState, {
     return {
       ...state,
       isLoading: false,
+      isError: true,
       customer: null,
       addresses: [],
     };

@@ -3,10 +3,11 @@ import {
   GET_CUSTOMERS,
   GET_CUSTOMERS_SUCCESS,
   GET_CUSTOMERS_ERROR,
-} from "./actionTypes";
+} from "./actions";
 
 const initialState = {
   isLoading: false,
+  isError: false,
   customers: [],
 };
 
@@ -15,6 +16,7 @@ const customerReducer = createReducer(initialState, {
     return {
       ...state,
       isLoading: true,
+      isError: false,
       customers: [],
     };
   },
@@ -29,6 +31,7 @@ const customerReducer = createReducer(initialState, {
     return {
       ...state,
       isLoading: false,
+      isError: true,
       customers: [],
     };
   },

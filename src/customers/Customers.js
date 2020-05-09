@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
 import { getCustomers } from "../store/customers/actions";
-import { selectCustomers } from "../store/customers/selectors";
+import { selectCustomers, selectIsError } from "../store/customers/selectors";
 import { selectIsLoading } from "../store/customers/selectors";
 
 import NavListItem from "./NavListItem";
@@ -17,6 +17,7 @@ function Customers() {
   const dispatch = useDispatch();
   const customersList = useSelector(selectCustomers);
   const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
 
   useEffect(() => {
     dispatch(getCustomers());
@@ -31,7 +32,16 @@ function Customers() {
               <FontAwesomeIcon icon={faCircleNotch} size="2x" spin />
             </div>
           )}
-          {customersList &&
+          {
+            /** Error state */
+            !isLoading && isError && (
+              <div className="text-center p-4 text-gray-500">
+                <h4>Could not get customers</h4>
+              </div>
+            )
+          }
+          {!isError &&
+            customersList &&
             customersList.map((customer) => (
               <NavListItem
                 key={customer._id}
@@ -42,7 +52,7 @@ function Customers() {
         </div>
       </div>
       <div className="main-pane flex-1 bg-gray-100">
-        <div class="h-full overflow-y-scroll">
+        <div className="h-full overflow-y-scroll">
           <Switch>
             <Route path={`${match.path}/:customerId`}>
               <AddressList />

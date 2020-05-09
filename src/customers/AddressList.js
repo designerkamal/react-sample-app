@@ -6,6 +6,7 @@ import {
   selectIsLoading,
   selectAddresses,
   selectCustomerDetail,
+  selectIsError,
 } from "../store/addresses/selectors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +17,7 @@ function AddressList() {
 
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
   const addresses = useSelector(selectAddresses);
   const customer = useSelector(selectCustomerDetail);
 
@@ -29,6 +31,14 @@ function AddressList() {
           <FontAwesomeIcon icon={faCircleNotch} size="2x" spin />
         </div>
       )}
+      {
+        /** Error State */
+        !isLoading && isError && (
+          <div className="p-6 text-center text-gray-500 text-xl">
+            <h4>Could not load customer information</h4>
+          </div>
+        )
+      }
       {customer && (
         <div className="pb-4 border-b mb-4">
           <h3 className="font-semibold text-2xl">{customer.name}</h3>
@@ -38,7 +48,8 @@ function AddressList() {
         </div>
       )}
       {
-        /** Empty State */ !isLoading && addresses.length === 0 && (
+        /** Empty State */
+        !isLoading && !isError && addresses.length === 0 && (
           <div className="p-6 text-center text-gray-500 text-xl">
             <h4>No Addresses Found</h4>
           </div>
