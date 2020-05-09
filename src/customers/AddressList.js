@@ -10,6 +10,7 @@ import {
 } from "../store/addresses/selectors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import AddressListItem from "./AddressListItem";
 
 function AddressList() {
   let match = useRouteMatch();
@@ -56,20 +57,9 @@ function AddressList() {
         )
       }
       {addresses && addresses.length > 0 && (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {addresses.map((address) => (
-            <div key={address._id} className="p-4 bg-white shadow-sm text-sm">
-              <h5 className="text-black pb-2">{address.title}</h5>
-              <p>
-                {address.street}
-                <br />
-                {address.city}
-                <br />
-                {address.state} - {address.zipCode}
-                <br />
-                {address.country}
-              </p>
-            </div>
+            <AddressListItem address={address} key={address._id} />
           ))}
         </div>
       )}

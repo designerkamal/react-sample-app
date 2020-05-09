@@ -8,7 +8,7 @@ export default function NavListItem({ customer, link }) {
       activeClassName="bg-yellow-200"
       className="block bg-white shadow-sm py-2 px-4 cursor-pointer hover:bg-yellow-200"
     >
-      <p className="text-lg">{customer.name}</p>
+      <p className="text-sm md:text-lg">{customer.name}</p>
       <p className="text-sm text-gray-600">{customer.sex}</p>
       <p className="text-sm text-gray-600">{customer.age} yrs</p>
     </NavLink>
